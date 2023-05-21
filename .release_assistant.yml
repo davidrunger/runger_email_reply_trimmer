@@ -1,3 +1,4 @@
 ---
 git: true
 rubygems: true
+primary_branch: main
