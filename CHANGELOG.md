@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v0.2.0 (2023-05-21)
 ### Changed
 - Rename with "Runger" prefix.
