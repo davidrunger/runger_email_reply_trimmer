@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'bundler/gem_tasks'
+require 'rake/testtask'
+
 def name
   @name ||= Dir['*.gemspec'].first.split('.').first
 end
@@ -9,7 +12,6 @@ def version
     'version']
 end
 
-task default: :test
-
-require 'rake/testtask'
 Rake::TestTask.new(:test)
+
+task default: :test
