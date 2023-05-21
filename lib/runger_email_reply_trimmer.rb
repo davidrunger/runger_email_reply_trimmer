@@ -1,33 +1,36 @@
 # frozen_string_literal: true
-require_relative "email_reply_trimmer/empty_line_matcher"
-require_relative "email_reply_trimmer/delimiter_matcher"
-require_relative "email_reply_trimmer/signature_matcher"
-require_relative "email_reply_trimmer/embedded_email_matcher"
-require_relative "email_reply_trimmer/email_header_matcher"
-require_relative "email_reply_trimmer/quote_matcher"
 
-class EmailReplyTrimmer
-  VERSION = "0.1.13"
+require_relative 'runger_email_reply_trimmer/delimiter_matcher'
 
-  DELIMITER    = "d"
-  EMBEDDED     = "b"
-  EMPTY        = "e"
-  EMAIL_HEADER = "h"
-  QUOTE        = "q"
-  SIGNATURE    = "s"
-  TEXT         = "t"
+require_relative 'runger_email_reply_trimmer/email_header_matcher'
+require_relative 'runger_email_reply_trimmer/embedded_email_matcher'
+require_relative 'runger_email_reply_trimmer/empty_line_matcher'
+require_relative 'runger_email_reply_trimmer/quote_matcher'
+require_relative 'runger_email_reply_trimmer/signature_matcher'
 
-  def self.identify_line_content(line)
-    return EMPTY        if EmptyLineMatcher.match? line
-    return DELIMITER    if DelimiterMatcher.match? line
-    return SIGNATURE    if SignatureMatcher.match? line
-    return EMBEDDED     if EmbeddedEmailMatcher.match? line
-    return EMAIL_HEADER if EmailHeaderMatcher.match? line
-    return QUOTE        if QuoteMatcher.match? line
+module RungerEmailReplyTrimmer
+  module_function
+
+  DELIMITER    = 'd'
+  EMBEDDED     = 'b'
+  EMPTY        = 'e'
+  EMAIL_HEADER = 'h'
+  QUOTE        = 'q'
+  SIGNATURE    = 's'
+  TEXT         = 't'
+
+  def identify_line_content(line)
+    return EMPTY        if EmptyLineMatcher.match?(line)
+    return DELIMITER    if DelimiterMatcher.match?(line)
+    return SIGNATURE    if SignatureMatcher.match?(line)
+    return EMBEDDED     if EmbeddedEmailMatcher.match?(line)
+    return EMAIL_HEADER if EmailHeaderMatcher.match?(line)
+    return QUOTE        if QuoteMatcher.match?(line)
+
     TEXT
   end
 
-  def self.trim(text, split = false)
+  def trim(text, split = false)
     return if text.nil? || text =~ /\A[[:space:]]*\z/m
 
     # do some cleanup
@@ -57,8 +60,8 @@ class EmailReplyTrimmer
     # when the reply is at the end of the email
     if is_reply_at_end?(pattern)
       index = pattern =~ /t[et]*$/
-      pattern = ""
-      lines = lines[index..-1]
+      pattern = ''
+      lines = lines[index..]
     end
 
     # if there is an embedded email marker, not followed by a quote
@@ -71,7 +74,7 @@ class EmailReplyTrimmer
 
     # if there is an embedded email marker, followed by a huge quote
     # then take everything up to that marker
-    if pattern =~ /te*b[eqbh]*([te]*)$/ && $1.count("t") < 7
+    if pattern =~ /te*b[eqbh]*([te]*)$/ && ::Regexp.last_match(1).count('t') < 7
       index = pattern =~ /te*b[eqbh]*[te]*$/
       pattern = pattern[0..index]
       lines = lines[0..index]
@@ -131,7 +134,7 @@ class EmailReplyTrimmer
     end
   end
 
-  def self.extract_embedded_email(text)
+  def extract_embedded_email(text)
     return if text.nil? || text =~ /\A[[:space:]]*\z/m
 
     # do some cleanup
@@ -143,11 +146,11 @@ class EmailReplyTrimmer
     # identify content of each lines
     pattern = lines.map { |l| identify_line_content(l) }.join
 
-    if index = pattern =~ /(?:h[eqd]*?){3,}[tq]/
-      embedded = lines[index..-1].join("\n").strip
-    elsif index = pattern =~ /b(?:[eqd]*){3,}[tq]/
+    if (index = pattern =~ /(?:h[eqd]*?){3,}[tq]/)
+      embedded = lines[index..].join("\n").strip
+    elsif (index = pattern =~ /b(?:[eqd]*){3,}[tq]/)
       # Exception for email clients (macOS / iOS) which embed fwd emails in quotes.
-      embedded = lines[index + 1..-1].map { |l| l.gsub(/^>\s*/, '') }.join("\n").strip
+      embedded = lines[index + 1..].map { |l| l.gsub(/^>\s*/, '') }.join("\n").strip
     end
 
     if index
@@ -156,28 +159,32 @@ class EmailReplyTrimmer
     end
   end
 
-  private
-
-  def self.preprocess!(text)
+  def preprocess!(text)
     # normalize line endings
     text.gsub!("\r\n", "\n")
 
     # remove PGP markers
-    text.gsub!(/\A-----BEGIN PGP SIGNED MESSAGE-----\n(?:Hash: \w+)?\s+/i, "")
-    text.gsub!(/^-----BEGIN PGP SIGNATURE-----$[\s\S]+^-----END PGP SIGNATURE-----/, "")
+    text.gsub!(/\A-----BEGIN PGP SIGNED MESSAGE-----\n(?:Hash: \w+)?\s+/i, '')
+    text.gsub!(/^-----BEGIN PGP SIGNATURE-----$[\s\S]+^-----END PGP SIGNATURE-----/, '')
 
     # remove unsubscribe links
-    text.gsub!(/^Unsubscribe: .+@.+(\n.+http:.+)?\s*\z/i, "")
+    text.gsub!(/^Unsubscribe: .+@.+(\n.+http:.+)?\s*\z/i, '')
 
     # remove alias-style quotes marker
-    text.gsub!(/^.*>{5} "[^"\n]+" == .+ writes:/, "")
+    text.gsub!(/^.*>{5} "[^"\n]+" == .+ writes:/, '')
 
     # change enclosed-style quotes format
-    text.gsub!(/^>>> ?(.+) ?>>>$\n([\s\S]+?)\n^<<< ?\1 ?<<<$/) { $2.gsub(/^/, "> ") }
-    text.gsub!(/^>{4,}[[:blank:]]*$\n([\s\S]+?)\n^<{4,}[[:blank:]]*$/) { $1.gsub(/^/, "> ") }
+    text.gsub!(/^>>> ?(.+) ?>>>$\n([\s\S]+?)\n^<<< ?\1 ?<<<$/) {
+      ::Regexp.last_match(2).gsub(/^/, '> ')
+    }
+    text.gsub!(/^>{4,}[[:blank:]]*$\n([\s\S]+?)\n^<{4,}[[:blank:]]*$/) {
+      ::Regexp.last_match(1).gsub(/^/, '> ')
+    }
 
     # fix all quotes formats
-    text.gsub!(/^((?:[[:blank:]]*[[:alpha:]]*[>|])+)/) { $1.gsub(/([[:alpha:]]+>|\|)/, ">") }
+    text.gsub!(/^((?:[[:blank:]]*[[:alpha:]]*[>|])+)/) {
+      ::Regexp.last_match(1).gsub(/([[:alpha:]]+>|\|)/, '>')
+    }
 
     # fix embedded email markers that might span over multiple lines
     (
@@ -187,7 +194,7 @@ class EmailReplyTrimmer
       [EmbeddedEmailMatcher::DATE_SOMEONE_EMAIL_REGEX]
     ).each do |r|
       text.gsub!(r) do |m|
-        m.count("\n") > 4 ? m : m.gsub(/\n+[[:space:]]*/, " ")
+        m.count("\n") > 4 ? m : m.gsub(/\n+[[:space:]]*/, ' ')
       end
     end
 
@@ -195,7 +202,7 @@ class EmailReplyTrimmer
     text.strip!
   end
 
-  def self.compute_elided(text, lines)
+  def compute_elided(text, lines)
     elided = []
 
     t = 0
@@ -213,7 +220,7 @@ class EmailReplyTrimmer
     elided.join("\n").strip
   end
 
-  def self.is_reply_at_end?(pattern)
+  def is_reply_at_end?(pattern)
     pattern =~ /^b[^t]+t[et]*$/
   end
 end

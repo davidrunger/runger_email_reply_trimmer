@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-class SignatureMatcher
+
+module SignatureMatcher
+  module_function
 
   # Envoyé depuis mon iPhone
   # Von meinem Mobilgerät gesendet
@@ -14,12 +16,12 @@ class SignatureMatcher
   # (sent from a phone)
   # (Sent from mobile device)
   # 從我的 iPhone 傳送
-  SIGNATURE_REGEXES ||= [
+  SIGNATURE_REGEXES = [
     # Chinese
     /^[[:blank:]]*從我的 iPhone 傳送/i,
     # English
     /^[[:blank:]]*[[:word:]]+ from mobile/i,
-    /^[[:blank:]]*[\(<]*Sent (from|via|with|by) .+[\)>]*/i,
+    /^[[:blank:]]*[(<]*Sent (from|via|with|by) .+[)>]*/i,
     /^[[:blank:]]*From my .{1,20}/i,
     /^[[:blank:]]*Get Outlook for /i,
     # French
@@ -40,12 +42,11 @@ class SignatureMatcher
     /^[[:blank:]]*Verstuurd vanaf mijn /i,
     # Swedish
     /^[[:blank:]]*från min /i,
-  ]
+  ].freeze
 
-  def self.match?(line)
+  def match?(line)
     # remove any markdown links
-    stripped = line.gsub(/\[([^\]]+)\]\([^\)]+\)/) { $1 }
+    stripped = line.gsub(/\[([^\]]+)\]\([^)]+\)/) { ::Regexp.last_match(1) }
     SIGNATURE_REGEXES.any? { |r| stripped =~ r }
   end
-
 end

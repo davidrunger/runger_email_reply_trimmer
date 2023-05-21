@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-class QuoteMatcher
 
-  def self.match?(line)
+module QuoteMatcher
+  module_function
+
+  def match?(line)
     line =~ /^[[:blank:]]*>/
   end
-
 end
