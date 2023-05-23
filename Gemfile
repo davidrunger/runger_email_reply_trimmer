@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'release_assistant', require: false, git: 'https://github.com/davidrunger/release_assistant'
+  gem 'runger_release_assistant', require: false
 end
 
 group :development, :test do
