@@ -1,4 +1,4 @@
-## Unreleased
+## v0.2.2 (2023-05-30)
 ### Changed
 - Update dependencies
 

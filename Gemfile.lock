@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    runger_email_reply_trimmer (0.2.2.alpha)
+    runger_email_reply_trimmer (0.2.2)
 
 GEM
   remote: https://rubygems.org/
