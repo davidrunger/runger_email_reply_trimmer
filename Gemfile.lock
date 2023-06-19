@@ -18,7 +18,7 @@ GEM
       concurrent-ruby (~> 1.0)
     json (2.6.3)
     memo_wise (1.7.0)
-    minitest (5.18.0)
+    minitest (5.18.1)
     parallel (1.23.0)
     parser (3.2.2.3)
       ast (~> 2.4.1)
