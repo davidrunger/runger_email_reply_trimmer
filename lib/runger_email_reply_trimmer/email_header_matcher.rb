@@ -30,7 +30,7 @@ module EmailHeaderMatcher
 
   EMAIL_HEADERS_WITH_DATE_REGEXES =
     EMAIL_HEADERS_WITH_DATE_MARKERS.map do |header|
-      /^[[:blank:]*]*(?:#{header.join("|")})[[:blank:]*]*:.*\d+/
+      /^[[:blank:]*]*(?:#{header.join('|')})[[:blank:]*]*:.*\d+/
     end
 
   EMAIL_HEADERS_WITH_TEXT_MARKERS = [
@@ -58,7 +58,7 @@ module EmailHeaderMatcher
 
   EMAIL_HEADERS_WITH_TEXT_REGEXES =
     EMAIL_HEADERS_WITH_TEXT_MARKERS.map do |header|
-      /^[[:blank:]*]*(?:#{header.join("|")})[[:blank:]*]*:.*[[:word:]]+/i
+      /^[[:blank:]*]*(?:#{header.join('|')})[[:blank:]*]*:.*[[:word:]]+/i
     end
 
   EMAIL_HEADER_REGEXES = [
