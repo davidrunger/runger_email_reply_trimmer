@@ -31,7 +31,7 @@ GEM
     minitest (5.23.1)
     mutex_m (0.2.0)
     parallel (1.25.1)
-    parser (3.3.2.0)
+    parser (3.3.3.0)
       ast (~> 2.4.1)
       racc
     prism (0.30.0)
@@ -61,7 +61,7 @@ GEM
       memo_wise (>= 1.7, < 2)
       rainbow (>= 3.0, < 4)
       slop (~> 4.8)
-    runger_style (2.5.0)
+    runger_style (2.6.0)
       prism (>= 0.24.0)
       rubocop (>= 1.38.0, < 2)
     slop (4.10.1)
