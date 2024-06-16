@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Ruby tests and linter
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
       - uses: ruby/setup-ruby@v1
