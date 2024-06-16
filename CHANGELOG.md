@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v0.3.0 (2024-06-15)
 ### Internal
 - Bump runger_release_assistant from 0.6.0 to 0.8.0
