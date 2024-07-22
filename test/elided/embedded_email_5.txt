@@ -1,3 +1,0 @@
-Some One <info@discourse.org> wrote:
-
-Something that will be considered as the embedded email.
