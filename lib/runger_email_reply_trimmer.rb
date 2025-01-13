@@ -174,17 +174,17 @@ module RungerEmailReplyTrimmer
     text.gsub!(/^.*>{5} "[^"\n]+" == .+ writes:/, '')
 
     # change enclosed-style quotes format
-    text.gsub!(/^>>> ?(.+) ?>>>$\n([\s\S]+?)\n^<<< ?\1 ?<<<$/) {
+    text.gsub!(/^>>> ?(.+) ?>>>$\n([\s\S]+?)\n^<<< ?\1 ?<<<$/) do
       ::Regexp.last_match(2).gsub(/^/, '> ')
-    }
-    text.gsub!(/^>{4,}[[:blank:]]*$\n([\s\S]+?)\n^<{4,}[[:blank:]]*$/) {
+    end
+    text.gsub!(/^>{4,}[[:blank:]]*$\n([\s\S]+?)\n^<{4,}[[:blank:]]*$/) do
       ::Regexp.last_match(1).gsub(/^/, '> ')
-    }
+    end
 
     # fix all quotes formats
-    text.gsub!(/^((?:[[:blank:]]*[[:alpha:]]*[>|])+)/) {
+    text.gsub!(/^((?:[[:blank:]]*[[:alpha:]]*[>|])+)/) do
       ::Regexp.last_match(1).gsub(/([[:alpha:]]+>|\|)/, '>')
-    }
+    end
 
     # fix embedded email markers that might span over multiple lines
     (
