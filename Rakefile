@@ -8,8 +8,13 @@ def name
 end
 
 def version
-  @version ||= File.read("lib/#{name}.rb")[/^\s*VERSION\s*=\s*['"](?'version'\d+\.\d+\.\d+)['"]/,
-    'version']
+  @version ||=
+    File.read(
+      "lib/#{name}/version.rb",
+    )[
+      /^\s*VERSION\s*=\s*['"](?'version'\d+\.\d+\.\d+(?:\.[a-z]{1,10})?)['"]/,
+      'version',
+    ]
 end
 
 Rake::TestTask.new(:test)
