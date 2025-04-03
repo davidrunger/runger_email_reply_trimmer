@@ -54,7 +54,7 @@ GEM
       rubocop-ast (>= 1.43.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.43.0)
+    rubocop-ast (1.44.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
@@ -113,7 +113,7 @@ CHECKSUMS
   rake (13.2.1) sha256=46cb38dae65d7d74b6020a4ac9d48afed8eb8149c040eccf0523bec91907059d
   regexp_parser (2.10.0) sha256=cb6f0ddde88772cd64bff1dbbf68df66d376043fe2e66a9ef77fcb1b0c548c61
   rubocop (1.75.1) sha256=c12900c55b0b52e6ed1384f7f7575beb92047019ce37ca14b9572d80239adc29
-  rubocop-ast (1.43.0) sha256=92cd649e336ce10212cb2f2b29028f487777ecc477f108f437a1dce1ee3db79a
+  rubocop-ast (1.44.0) sha256=77fdaf4aacf0c7d1ef887b075686124fb4ae5743d42ff7e73bb1c0d6b61b5d0a
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   runger_email_reply_trimmer (0.3.1.alpha)
   runger_release_assistant (4.3.1) sha256=3246c925240739eb12b9e6b9526a77ea00fcf0a0941441ff5ffacefb7e3e4d83
