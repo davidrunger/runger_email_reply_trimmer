@@ -46,7 +46,7 @@ Metrics/PerceivedComplexity:
 # ForbiddenPrefixes: is_, has_, have_
 # AllowedMethods: is_a?
 # MethodDefinitionMacros: define_method, define_singleton_method
-Naming/PredicateName:
+Naming/PredicatePrefix:
   Exclude:
     - 'spec/**/*'
     - 'lib/runger_email_reply_trimmer.rb'
