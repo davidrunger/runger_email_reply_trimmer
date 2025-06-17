@@ -150,7 +150,7 @@ module RungerEmailReplyTrimmer
       embedded = lines[index..].join("\n").strip
     elsif (index = pattern =~ /b(?:[eqd]*){3,}[tq]/)
       # Exception for email clients (macOS / iOS) which embed fwd emails in quotes.
-      embedded = lines[index + 1..].map { |l| l.gsub(/^>\s*/, '') }.join("\n").strip
+      embedded = lines[(index + 1)..].map { |l| l.gsub(/^>\s*/, '') }.join("\n").strip
     end
 
     if index
