@@ -38,7 +38,7 @@ GEM
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
-    prism (1.5.0)
+    prism (1.5.1)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.3.0)
@@ -107,7 +107,7 @@ CHECKSUMS
   minitest (5.25.5) sha256=391b6c6cb43a4802bfb7c93af1ebe2ac66a210293f4a3fb7db36f2fc7dc2c756
   parallel (1.27.0) sha256=4ac151e1806b755fb4e2dc2332cbf0e54f2e24ba821ff2d3dcf86bf6dc4ae130
   parser (3.3.9.0) sha256=94d6929354b1a6e3e1f89d79d4d302cc8f5aa814431a6c9c7e0623335d7687f2
-  prism (1.5.0) sha256=4aeaafa130af5f480fe93add6aeb6ddf39cd646987f0d1608d1be84381534266
+  prism (1.5.1) sha256=b40c1b76ccb9fcccc3d1553967cda6e79fa7274d8bfea0d98b15d27a6d187134
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
   rake (13.3.0) sha256=96f5092d786ff412c62fde76f793cc0541bd84d2eb579caa529aa8a059934493
