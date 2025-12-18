@@ -12,7 +12,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'minitest', '~> 5', require: false
+  gem 'minitest', '~> 6', require: false
   gem 'rake', '~> 13', require: false
   gem 'rubocop', require: false
   gem 'runger_style', require: false
