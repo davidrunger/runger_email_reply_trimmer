@@ -20,18 +20,32 @@ module RungerEmailReplyTrimmer
   TEXT         = 't'
 
   def identify_line_content(line)
-    return EMPTY        if EmptyLineMatcher.match?(line)
-    return DELIMITER    if DelimiterMatcher.match?(line)
-    return SIGNATURE    if SignatureMatcher.match?(line)
-    return EMBEDDED     if EmbeddedEmailMatcher.match?(line)
-    return EMAIL_HEADER if EmailHeaderMatcher.match?(line)
-    return QUOTE        if QuoteMatcher.match?(line)
+    if EmptyLineMatcher.match?(line)
+      return EMPTY
+    end
+    if DelimiterMatcher.match?(line)
+      return DELIMITER
+    end
+    if SignatureMatcher.match?(line)
+      return SIGNATURE
+    end
+    if EmbeddedEmailMatcher.match?(line)
+      return EMBEDDED
+    end
+    if EmailHeaderMatcher.match?(line)
+      return EMAIL_HEADER
+    end
+    if QuoteMatcher.match?(line)
+      return QUOTE
+    end
 
     TEXT
   end
 
   def trim(text, split = false)
-    return if text.nil? || text =~ /\A[[:space:]]*\z/m
+    if text.nil? || text =~ /\A[[:space:]]*\z/m
+      return
+    end
 
     # do some cleanup
     preprocess!(text)
@@ -135,7 +149,9 @@ module RungerEmailReplyTrimmer
   end
 
   def extract_embedded_email(text)
-    return if text.nil? || text =~ /\A[[:space:]]*\z/m
+    if text.nil? || text =~ /\A[[:space:]]*\z/m
+      return
+    end
 
     # do some cleanup
     preprocess!(text)
